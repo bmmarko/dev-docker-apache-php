@@ -1,6 +1,7 @@
 FROM php:7.2.16-apache-stretch
-
-# LABEL authors="Julien Neuhart <j.neuhart@thecodingmachine.com>, David Négrier <d.negrier@thecodingmachine.com>"
+# Docker image for local PHP / Apache dev server
+# Modified script, mainly based on https://github.com/thecodingmachine/docker-images-php with some packages extended
+# Gearman, ImageMagick, Redis etc.
 
 # |--------------------------------------------------------------------------
 # | Main PHP extensions
