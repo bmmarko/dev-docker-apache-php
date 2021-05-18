@@ -211,9 +211,9 @@ COPY utils/composer_proxy.sh /usr/local/bin/composer
 # | Installs Prestissimo to improve Composer download performance.
 # |
 
-USER docker
-RUN composer global require hirak/prestissimo
-USER root
+# USER docker
+# RUN composer global require hirak/prestissimo
+# USER root
 
 ENV APACHE_DOCUMENT_ROOT /
 
@@ -263,9 +263,9 @@ RUN mkdir ~/.ssh && touch ~/.ssh/known_hosts && chmod 644 ~/.ssh/known_hosts && 
 # | Let's update the .bashrc to add nice aliases
 # |
 
-RUN composer global require bamarni/symfony-console-autocomplete
+# RUN composer global require bamarni/symfony-console-autocomplete
 
-RUN echo 'eval "$(symfony-autocomplete)"' > ~/.bash_profile
+# RUN echo 'eval "$(symfony-autocomplete)"' > ~/.bash_profile
 
 RUN { \
     echo "alias ls='ls --color=auto'"; \
