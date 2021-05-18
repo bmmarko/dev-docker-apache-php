@@ -13,36 +13,36 @@ FROM php:7.2.16-apache-stretch
 # Shamelessly borrowed from https://github.com/TetraWeb/docker/
 
 RUN buildDeps=" \
-        freetds-dev \
-        libbz2-dev \
-        libc-client-dev \
-        libenchant-dev \
-        libevent-dev \
-        libfreetype6-dev \
-        libgmp3-dev \
-        libicu-dev \
-        libjpeg62-turbo-dev \
-        libkrb5-dev \
-        libldap2-dev \
-        libmcrypt-dev \
-        libpng-dev \
-        libpq-dev \
-        libpspell-dev \
-        librabbitmq-dev \
-        libsasl2-dev \
-        libsnmp-dev \
-        libssl-dev \
-        libtidy-dev \
-        libxml2-dev \
-        libxpm-dev \
-        libxslt1-dev \
-        zlib1g-dev \
-        libmagickwand-dev \
-        wget \
-        unzip " \
-        && echo $buildDeps > /.buildDeps
+    freetds-dev \
+    libbz2-dev \
+    libc-client-dev \
+    libenchant-dev \
+    libevent-dev \
+    libfreetype6-dev \
+    libgmp3-dev \
+    libicu-dev \
+    libjpeg62-turbo-dev \
+    libkrb5-dev \
+    libldap2-dev \
+    libmcrypt-dev \
+    libpng-dev \
+    libpq-dev \
+    libpspell-dev \
+    librabbitmq-dev \
+    libsasl2-dev \
+    libsnmp-dev \
+    libssl-dev \
+    libtidy-dev \
+    libxml2-dev \
+    libxpm-dev \
+    libxslt1-dev \
+    zlib1g-dev \
+    libmagickwand-dev \
+    wget \
+    unzip " \
+    && echo $buildDeps > /.buildDeps
 RUN phpModules=" \
-        bcmath bz2 calendar dba enchant exif ftp gd gettext gmp imap intl ldap mbstring mysqli opcache pcntl pdo pdo_dblib pdo_mysql pdo_pgsql pgsql pspell shmop snmp soap sockets sysvmsg sysvsem sysvshm tidy wddx xmlrpc xsl zip xdebug \
+    bcmath bz2 calendar dba enchant exif ftp gd gettext gmp imap intl ldap mbstring mysqli opcache pcntl pdo pdo_dblib pdo_mysql pdo_pgsql pgsql pspell shmop snmp soap sockets sysvmsg sysvsem sysvshm tidy wddx xmlrpc xsl zip xdebug \
     " \
     && echo $phpModules > /.phpModules
 
@@ -99,6 +99,9 @@ RUN apt-get install -y imagemagick \
     && pecl install imagick-3.4.3 \
     && docker-php-ext-enable imagick
 
+RUN pecl install mailparse && \
+    docker-php-ext-enable mailparse
+
 RUN cd /tmp \
     && wget https://github.com/wcgallego/pecl-gearman/archive/gearman-2.0.5.zip \
     && unzip gearman-2.0.5.zip \
@@ -116,8 +119,8 @@ RUN apt-get install -y libmagickcore-6.q16-3 \
     && apt-get install -y ghostscript
 
 RUN for ext in $(cat /.phpModules); do \
-           rm -f /usr/local/etc/php/conf.d/docker-php-ext-$ext.ini; \
-       done \
+    rm -f /usr/local/etc/php/conf.d/docker-php-ext-$ext.ini; \
+    done \
     && docker-php-source delete
 
 # |--------------------------------------------------------------------------
@@ -283,10 +286,10 @@ RUN composer global require bamarni/symfony-console-autocomplete
 RUN echo 'eval "$(symfony-autocomplete)"' > ~/.bash_profile
 
 RUN { \
-        echo "alias ls='ls --color=auto'"; \
-        echo "alias ll='ls --color=auto -alF'"; \
-        echo "alias la='ls --color=auto -A'"; \
-        echo "alias l='ls --color=auto -CF'"; \
+    echo "alias ls='ls --color=auto'"; \
+    echo "alias ll='ls --color=auto -alF'"; \
+    echo "alias la='ls --color=auto -A'"; \
+    echo "alias l='ls --color=auto -CF'"; \
     } >> ~/.bashrc
 
 USER root
