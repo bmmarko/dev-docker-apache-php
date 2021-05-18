@@ -1,6 +1,7 @@
 FROM php:7.2.16-apache-stretch
-
-# LABEL authors="Julien Neuhart <j.neuhart@thecodingmachine.com>, David Négrier <d.negrier@thecodingmachine.com>"
+# Docker image for local PHP / Apache dev server
+# Modified script, mainly based on https://github.com/thecodingmachine/docker-images-php with some packages extended
+# Gearman, ImageMagick, Redis etc.
 
 # |--------------------------------------------------------------------------
 # | Main PHP extensions
@@ -48,26 +49,7 @@ RUN phpModules=" \
 
 RUN sed -i "s/stretch main/stretch main contrib non-free/" /etc/apt/sources.list
 RUN apt-get update
-RUN apt-get install -y libc-client2007e
-RUN apt-get install -y libenchant1c2a --no-install-recommends
-RUN apt-get install -y libfreetype6 --no-install-recommends
-RUN apt-get install -y libicu57 --no-install-recommends
-RUN apt-get install -y libjpeg62-turbo --no-install-recommends
-RUN apt-get install -y libmcrypt4 --no-install-recommends
-RUN apt-get install -y libpng16-16 --no-install-recommends
-RUN apt-get install -y libpq5 --no-install-recommends
-RUN apt-get install -y libsybdb5 --no-install-recommends
-RUN apt-get install -y libtidy5 --no-install-recommends
-RUN apt-get install -y libx11-6 --no-install-recommends
-RUN apt-get install -y libxpm4 --no-install-recommends
-RUN apt-get install -y libxslt1.1 --no-install-recommends
-RUN apt-get install -y snmp --no-install-recommends
-RUN apt-get install -y sudo --no-install-recommends
-RUN apt-get install -y openssh-client --no-install-recommends
-RUN apt-get install -y procps --no-install-recommends
-RUN apt-get install -y libgearman-dev --no-install-recommends
-RUN apt-get install -y gearman-job-server --no-install-recommends
-RUN apt-get install -y gearman-tools --no-install-recommends
+RUN apt-get install -y libc-client2007e libenchant1c2a libfreetype6 libicu57 libjpeg62-turbo libmcrypt4 libpng16-16 libpq5 libsybdb5 libtidy5 libx11-6 libxpm4 libxslt1.1 snmp sudo openssh-client procps libgearman-dev gearman-job-server --no-install-recommends
 
 RUN apt-get install -y $(cat /.buildDeps) --no-install-recommends \
     && docker-php-source extract \
